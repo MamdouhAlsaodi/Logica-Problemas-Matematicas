@@ -1,0 +1,17 @@
+[
+  {
+    "name": "أحمد محمد",
+    "email": "ahmed@example.com",
+    "level": "advanced"
+  },
+  {
+    "name": "سارة محمود",
+    "email": "sara@example.com",
+    "level": "beginner"
+  },
+  {
+    "name": "خالد علي",
+    "email": "khaled@example.com",
+    "level": "intermediate"
+  }
+]

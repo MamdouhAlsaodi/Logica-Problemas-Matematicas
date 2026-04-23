@@ -1,0 +1,32 @@
+[
+  {
+    "question": "ما حاصل جمع زوايا المثلث؟",
+    "answer": "180 درجة",
+    "difficulty": "easy",
+    "category": "هندسة"
+  },
+  {
+    "question": "حل المعادلة: 2x + 5 = 15",
+    "answer": "x = 5",
+    "difficulty": "medium",
+    "category": "جبر"
+  },
+  {
+    "question": "ما هو الجذر التربيعي لـ 144؟",
+    "answer": "12",
+    "difficulty": "easy",
+    "category": "حساب"
+  },
+  {
+    "question": "أوجد قيمة x إذا كان 3^x = 27",
+    "answer": "x = 3",
+    "difficulty": "medium",
+    "category": "جبر"
+  },
+  {
+    "question": "احسب مساحة دائرة نصف قطرها 7 سم (π ≈ 3.14)",
+    "answer": "153.86 سم مربع",
+    "difficulty": "hard",
+    "category": "هندسة"
+  }
+]
