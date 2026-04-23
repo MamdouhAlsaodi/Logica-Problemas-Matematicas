@@ -1,32 +1,50 @@
 [
   {
-    "question": "ما حاصل جمع زوايا المثلث؟",
-    "answer": "180 درجة",
+    "question": "Qual é a soma dos ângulos de um triângulo?",
+    "answer": "180 graus",
     "difficulty": "easy",
-    "category": "هندسة"
+    "category": "Geometria"
   },
   {
-    "question": "حل المعادلة: 2x + 5 = 15",
+    "question": "Resolva a equação: 2x + 5 = 15",
     "answer": "x = 5",
     "difficulty": "medium",
-    "category": "جبر"
+    "category": "Álgebra"
   },
   {
-    "question": "ما هو الجذر التربيعي لـ 144؟",
+    "question": "Qual é a raiz quadrada de 144?",
     "answer": "12",
     "difficulty": "easy",
-    "category": "حساب"
+    "category": "Aritmética"
   },
   {
-    "question": "أوجد قيمة x إذا كان 3^x = 27",
+    "question": "Encontre o valor de x se 3^x = 27",
     "answer": "x = 3",
     "difficulty": "medium",
-    "category": "جبر"
+    "category": "Álgebra"
   },
   {
-    "question": "احسب مساحة دائرة نصف قطرها 7 سم (π ≈ 3.14)",
-    "answer": "153.86 سم مربع",
+    "question": "Calcule a área de um círculo com raio 7 cm (π ≈ 3.14)",
+    "answer": "153.86 cm²",
     "difficulty": "hard",
-    "category": "هندسة"
+    "category": "Geometria"
+  },
+  {
+    "question": "Quanto é 15% de 200?",
+    "answer": "30",
+    "difficulty": "easy",
+    "category": "Aritmética"
+  },
+  {
+    "question": "Resolva: (x + 3)² = 25",
+    "answer": "x = 2 ou x = -8",
+    "difficulty": "medium",
+    "category": "Álgebra"
+  },
+  {
+    "question": "Qual é o volume de um cubo com lado 5 cm?",
+    "answer": "125 cm³",
+    "difficulty": "easy",
+    "category": "Geometria"
   }
 ]

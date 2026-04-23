@@ -5,6 +5,7 @@ const {
   getAllProblems,
   createProblem,
   getProblemById,
+  checkAnswer,
   updateProblem,
   deleteProblem
 } = require('../controllers/problemController');
@@ -12,6 +13,7 @@ const {
 router.get('/', getAllProblems);
 router.post('/', validateProblem, createProblem);
 router.get('/:id', getProblemById);
+router.post('/:id/check', checkAnswer);
 router.put('/:id', validateProblem, updateProblem);
 router.delete('/:id', deleteProblem);
 
