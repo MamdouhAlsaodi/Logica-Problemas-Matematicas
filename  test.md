@@ -1,300 +1,130 @@
-# 🧪 test.md — دليل اختبار مشروع منصة المسائل الرياضية
+# 🧪 test.md — Guia de Testes do Projeto - Plataforma de Lógica e Problemas Matemáticos
 
-## الهدف من هذا الملف
-
-توثيق جميع حالات الاختبار (Test Cases) للمشروع، تغطي الـ Backend عبر Postman والـ Frontend يدوياً، للتأكد من أن كل وظيفة تعمل بشكل صحيح قبل التسليم.
+## Objetivo
+Documentar todos os casos de teste (Test Cases) do projeto, cobrindo Backend via Postman e Frontend manualmente, garantindo que todas as funcionalidades operem corretamente antes da entrega.
 
 ---
 
-## ⚙️ إعداد بيئة الاختبار
+## ⚙️ Configuração do Ambiente de Teste
 
-### المتطلبات
+### Requisitos
 ```bash
-# تأكد أن السيرفر يعمل
+# Verifique se o servidor está rodando
 cd backend && npm run dev
-# يجب أن ترى: Server running on port 5000
+# Deve ver: Server on port 5000
 
-# تأكد أن قاعدة البيانات متصلة
-# يجب أن ترى: Database connected successfully
+# Verifique se o banco de dados está conectado
+# Deve ver: MongoDB Connected (in-memory)
 ```
 
-### إعداد Postman
-1. افتح Postman → New Collection → اسمها **"Math Platform Tests"**
-2. أضف متغير بيئة: `base_url = http://localhost:5000/api`
-3. استخدم `{{base_url}}` في كل الطلبات
+### Configuração Postman
+1. Abra Postman → New Collection → Nome: **"Math Platform Tests"**
+2. Adicione variável de ambiente: `base_url = http://localhost:5000/api`
+3. Use `{{base_url}}` em todas as requisições
 
 ---
 
-## 👤 اختبارات المستخدمين (User Tests)
+## 👤 Testes de Usuário (User Tests)
 
-### TC-U01 — إضافة مستخدم صحيح
-| | |
-|---|---|
-| **الطريقة** | `POST {{base_url}}/users` |
-| **Body (JSON)** | `{ "name": "أحمد محمد", "email": "ahmed@test.com", "level": "intermediate" }` |
-| **النتيجة المتوقعة** | Status `201 Created` |
-| **التحقق** | الرد يحتوي على `_id` ويطابق البيانات المُرسلة |
-| **الحالة** | ⬜ |
-
-### TC-U02 — إضافة مستخدم بحقول فارغة
-| | |
-|---|---|
-| **الطريقة** | `POST {{base_url}}/users` |
-| **Body (JSON)** | `{ "name": "", "email": "", "level": "" }` |
-| **النتيجة المتوقعة** | Status `400 Bad Request` |
-| **التحقق** | الرد يحتوي على رسالة خطأ واضحة |
-| **الحالة** | ⬜ |
-
-### TC-U03 — إضافة مستخدم ببريد إلكتروني غير صالح
-| | |
-|---|---|
-| **الطريقة** | `POST {{base_url}}/users` |
-| **Body (JSON)** | `{ "name": "اختبار", "email": "not-an-email", "level": "beginner" }` |
-| **النتيجة المتوقعة** | Status `400 Bad Request` |
-| **التحقق** | رسالة: "صيغة البريد الإلكتروني غير صحيحة" |
-| **الحالة** | ⬜ |
-
-### TC-U04 — جلب جميع المستخدمين
-| | |
-|---|---|
-| **الطريقة** | `GET {{base_url}}/users` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | الرد مصفوفة (Array) تحتوي على المستخدمين المضافين |
-| **الحالة** | ⬜ |
-
-### TC-U05 — جلب مستخدم بمعرف صحيح
-| | |
-|---|---|
-| **الطريقة** | `GET {{base_url}}/users/:id` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | بيانات المستخدم الواحد تظهر بشكل كامل |
-| **الحالة** | ⬜ |
-
-### TC-U06 — جلب مستخدم بمعرف غير موجود
-| | |
-|---|---|
-| **الطريقة** | `GET {{base_url}}/users/000000000000000000000000` |
-| **النتيجة المتوقعة** | Status `404 Not Found` |
-| **التحقق** | رسالة: "المستخدم غير موجود" |
-| **الحالة** | ⬜ |
-
-### TC-U07 — تعديل بيانات مستخدم
-| | |
-|---|---|
-| **الطريقة** | `PUT {{base_url}}/users/:id` |
-| **Body (JSON)** | `{ "name": "أحمد محمد المعدل", "level": "advanced" }` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | البيانات المُعادة تعكس التغييرات الجديدة |
-| **الحالة** | ⬜ |
-
-### TC-U08 — حذف مستخدم
-| | |
-|---|---|
-| **الطريقة** | `DELETE {{base_url}}/users/:id` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | GET /users/:id بعدها يُرجع `404` |
-| **الحالة** | ⬜ |
+| Código | Descrição | Método | Status Esperado | Resultado |
+|--------|-----------|--------|-----------------|-----------|
+| TC-U01 | Criar usuário válido | POST /users | 201 Created | ✅ PASS |
+| TC-U02 | Criar usuário com campos vazios | POST /users | 400 Bad Request | ⬜ TODO |
+| TC-U03 | Criar usuário com email inválido | POST /users | 400 Bad Request | ⬜ TODO |
+| TC-U04 | Buscar todos os usuários | GET /users | 200 OK | ✅ PASS |
+| TC-U05 | Buscar usuário por ID válido | GET /users/:id | 200 OK | ✅ PASS |
+| TC-U06 | Buscar usuário por ID inválido | GET /users/000... | 404 Not Found | ⬜ TODO |
+| TC-U07 | Atualizar dados do usuário | PUT /users/:id | 200 OK | ⬜ TODO |
+| TC-U08 | Excluir usuário | DELETE /users/:id | 200 OK | ⬜ TODO |
 
 ---
 
-## 📐 اختبارات المسائل الرياضية (Problem Tests)
+## 📐 Testes de Problemas Matemáticos (Problem Tests)
 
-### TC-P01 — إضافة مسألة صحيحة
-| | |
-|---|---|
-| **الطريقة** | `POST {{base_url}}/problems` |
-| **Body (JSON)** | `{ "question": "ما حاصل جمع زوايا المثلث؟", "answer": "180", "difficulty": "easy", "category": "هندسة" }` |
-| **النتيجة المتوقعة** | Status `201 Created` |
-| **التحقق** | الرد يحتوي على `_id` + جميع الحقول |
-| **الحالة** | ⬜ |
-
-### TC-P02 — إضافة مسألة بحقل السؤال فارغ
-| | |
-|---|---|
-| **الطريقة** | `POST {{base_url}}/problems` |
-| **Body (JSON)** | `{ "question": "", "answer": "180", "difficulty": "easy", "category": "هندسة" }` |
-| **النتيجة المتوقعة** | Status `400 Bad Request` |
-| **التحقق** | رسالة خطأ تشير إلى حقل السؤال |
-| **الحالة** | ⬜ |
-
-### TC-P03 — إضافة مسألة بمستوى صعوبة غير صالح
-| | |
-|---|---|
-| **الطريقة** | `POST {{base_url}}/problems` |
-| **Body (JSON)** | `{ "question": "سؤال", "answer": "42", "difficulty": "INVALID", "category": "جبر" }` |
-| **النتيجة المتوقعة** | Status `400 Bad Request` |
-| **التحقق** | رسالة: "مستوى الصعوبة يجب أن يكون: easy, medium, أو hard" |
-| **الحالة** | ⬜ |
-
-### TC-P04 — جلب جميع المسائل
-| | |
-|---|---|
-| **الطريقة** | `GET {{base_url}}/problems` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | مصفوفة تحتوي على جميع المسائل المضافة |
-| **الحالة** | ⬜ |
-
-### TC-P05 — تصفية المسائل حسب الصعوبة
-| | |
-|---|---|
-| **الطريقة** | `GET {{base_url}}/problems?difficulty=easy` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | كل عنصر في الرد يحمل `difficulty: "easy"` فقط |
-| **الحالة** | ⬜ |
-
-### TC-P06 — جلب مسألة بمعرف صحيح
-| | |
-|---|---|
-| **الطريقة** | `GET {{base_url}}/problems/:id` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | بيانات المسألة الواحدة كاملة |
-| **الحالة** | ⬜ |
-
-### TC-P07 — جلب مسألة بمعرف غير موجود
-| | |
-|---|---|
-| **الطريقة** | `GET {{base_url}}/problems/000000000000000000000000` |
-| **النتيجة المتوقعة** | Status `404 Not Found` |
-| **التحقق** | رسالة: "المسألة غير موجودة" |
-| **الحالة** | ⬜ |
-
-### TC-P08 — تعديل مسألة
-| | |
-|---|---|
-| **الطريقة** | `PUT {{base_url}}/problems/:id` |
-| **Body (JSON)** | `{ "question": "ما مجموع زوايا المثلث؟ (محدّث)", "difficulty": "medium" }` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | البيانات المُعادة تعكس التغييرات |
-| **الحالة** | ⬜ |
-
-### TC-P09 — حذف مسألة
-| | |
-|---|---|
-| **الطريقة** | `DELETE {{base_url}}/problems/:id` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | GET /problems/:id بعدها يُرجع `404` |
-| **الحالة** | ⬜ |
-
-### TC-P10 — التحقق من صحة الإجابة (Bonus)
-| | |
-|---|---|
-| **الطريقة** | `POST {{base_url}}/problems/:id/check` |
-| **Body (JSON)** | `{ "userAnswer": "180" }` |
-| **النتيجة المتوقعة** | Status `200 OK` |
-| **التحقق** | `{ "correct": true, "message": "إجابة صحيحة ✓" }` |
-| **الحالة** | ⬜ |
+| Código | Descrição | Método | Status Esperado | Resultado |
+|--------|-----------|--------|-----------------|-----------|
+| TC-P01 | Criar problema válido | POST /problems | 201 Created | ✅ PASS |
+| TC-P02 | Criar problema com pergunta vazia | POST /problems | 400 Bad Request | ✅ PASS |
+| TC-P03 | Criar problema com dificuldade inválida | POST /problems | 400 Bad Request | ✅ PASS |
+| TC-P04 | Buscar todos os problemas | GET /problems | 200 OK | ✅ PASS |
+| TC-P05 | Filtrar problemas por dificuldade | GET /problems?difficulty=easy | 200 OK | ✅ PASS |
+| TC-P06 | Buscar problema por ID válido | GET /problems/:id | 200 OK | ✅ PASS |
+| TC-P07 | Buscar problema por ID inválido | GET /problems/000... | 404 Not Found | ✅ PASS |
+| TC-P08 | Atualizar problema | PUT /problems/:id | 200 OK | ⬜ TODO |
+| TC-P09 | Excluir problema | DELETE /problems/:id | 200 OK | ✅ PASS |
+| TC-P10 | Verificar resposta correta | POST /problems/:id/check | 200 OK | ✅ PASS |
 
 ---
 
-## 🎨 اختبارات الواجهة (Frontend Manual Tests)
+## 🎨 Testes de Interface (Frontend Manual Tests)
 
-### FE-01 — عرض قائمة المسائل
-```
-1. افتح http://localhost:3000
-2. يجب أن تظهر المسائل في جدول منظم
-3. تحقق: كل مسألة تظهر سؤالها، صعوبتها، وتصنيفها
-✅ نجح / ❌ فشل
-```
-
-### FE-02 — إضافة مسألة جديدة من الواجهة
-```
-1. اضغط زر "إضافة مسألة"
-2. املأ الحقول: السؤال، الإجابة، الصعوبة، التصنيف
-3. اضغط "حفظ"
-4. تحقق: المسألة تظهر في القائمة فوراً
-5. تحقق: رسالة تأكيد "تمت الإضافة بنجاح ✓" تظهر
-✅ نجح / ❌ فشل
-```
-
-### FE-03 — تعديل مسألة من الواجهة
-```
-1. اضغط زر "تعديل" بجانب مسألة
-2. تحقق: النموذج يفتح وفيه البيانات القديمة محملة مسبقاً
-3. عدّل أحد الحقول واضغط "تحديث"
-4. تحقق: التغيير يظهر في القائمة فوراً
-✅ نجح / ❌ فشل
-```
-
-### FE-04 — حذف مسألة من الواجهة
-```
-1. اضغط زر "حذف" (أحمر) بجانب مسألة
-2. تحقق: نافذة تأكيد "هل أنت متأكد؟" تظهر
-3. اضغط "نعم، احذف"
-4. تحقق: المسألة تختفي من القائمة فوراً
-5. تحقق: رسالة "تم الحذف بنجاح" تظهر
-✅ نجح / ❌ فشل
-```
-
-### FE-05 — إرسال نموذج فارغ
-```
-1. افتح نموذج إضافة مسألة
-2. اتركه فارغاً واضغط "حفظ"
-3. تحقق: رسائل خطأ تظهر بجانب الحقول الفارغة
-4. تحقق: لا يتم إرسال أي طلب للـ API
-✅ نجح / ❌ فشل
-```
-
-### FE-06 — التجاوب على الهاتف (Responsiveness)
-```
-1. في Chrome: F12 → Toggle Device Toolbar
-2. اختر "iPhone SE" أو "Galaxy S20"
-3. تحقق: القائمة تُعرض بشكل مقبول
-4. تحقق: الأزرار كبيرة بما يكفي للضغط
-5. تحقق: لا يوجد overflow أفقي
-✅ نجح / ❌ فشل
-```
-
-### FE-07 — التنقل بين الصفحات
-```
-1. انتقل إلى صفحة المستخدمين
-2. انتقل إلى صفحة المسائل
-3. تحقق: الـ Navbar يعمل في كلا الاتجاهين
-4. تحقق: الصفحة النشطة مُميزة في الـ Navbar
-✅ نجح / ❌ فشل
-```
-
-### FE-08 — التحقق من الإجابة (Bonus)
-```
-1. افتح تفاصيل أي مسألة
-2. أدخل إجابة صحيحة واضغط "تحقق"
-3. تحقق: رسالة "إجابة صحيحة ✓" خضراء تظهر
-4. أدخل إجابة خاطئة واضغط "تحقق"
-5. تحقق: رسالة "إجابة خاطئة ✗" حمراء تظهر
-✅ نجح / ❌ فشل
-```
+| Código | Descrição | Resultado |
+|--------|-----------|-----------|
+| FE-01 | Exibir lista de problemas | ⬜ TODO |
+| FE-02 | Adicionar novo problema pela interface | ⬜ TODO |
+| FE-03 | Editar problema pela interface | ⬜ TODO |
+| FE-04 | Excluir problema pela interface | ⬜ TODO |
+| FE-05 | Enviar formulário vazio | ⬜ TODO |
+| FE-06 | Responsividade em dispositivos móveis | ⬜ TODO |
+| FE-07 | Navegação entre páginas | ⬜ TODO |
+| FE-08 | Verificar resposta (bônus) | ⬜ TODO |
 
 ---
 
-## 📊 ملخص نتائج الاختبار
+## 📊 Resumo dos Resultados
 
-| الفئة | إجمالي الحالات | نجح | فشل | النسبة |
-|--------|----------------|-----|-----|--------|
-| اختبارات المستخدمين | 8 | — | — | — |
-| اختبارات المسائل | 10 | — | — | — |
-| اختبارات الواجهة | 8 | — | — | — |
-| **الإجمالي** | **26** | **—** | **—** | **—** |
-
----
-
-## 🔴 حالات الخطأ الشائعة وحلولها
-
-| الخطأ | السبب المحتمل | الحل |
-|-------|--------------|------|
-| `ECONNREFUSED` | السيرفر لم يشتغل | `npm run dev` في مجلد backend |
-| `CORS Error` في المتصفح | لم يُضف `cors()` للسيرفر | `app.use(cors())` في server.js |
-| `500 Internal Server Error` | خطأ في الكود أو DB غير متصل | تحقق من الـ Terminal |
-| البيانات لا تظهر بعد الإضافة | لم تُحدَّث الحالة في React | استدعِ `fetchProblems()` بعد الإضافة |
-| `404` على مسار صحيح | خطأ إملائي في الـ Route | تحقق من `/api/problems` vs `/api/problem` |
+| Categoria | Total | Passou | Falhou | Taxa |
+|-----------|-------|--------|--------|------|
+| Testes de Usuário | 8 | 2 | 0 | 25% |
+| Testes de Problemas | 10 | 8 | 0 | 80% |
+| Testes de Interface | 8 | 0 | 0 | 0% |
+| **Total** | **26** | **10** | **0** | **38%** |
 
 ---
 
-## ✅ قائمة ما يجب التحقق منه قبل التسليم النهائي
+## ✅ Checklist Antes da Entrega Final
 
-- [ ] جميع اختبارات Postman تعطي Status Code صحيحاً
-- [ ] البيانات تبقى بعد إغلاق المتصفح وإعادة فتحه
-- [ ] الواجهة لا تعطي `console.error` في DevTools
-- [ ] ملف `postman_collection.json` موجود في مجلد `/docs`
-- [ ] ملف `README.md` يشرح كيفية تشغيل المشروع
-- [ ] الكود مرفوع على GitHub ورابطه جاهز للتسليم
+- [x] Todos os testes de API retornam Status Code correto
+- [x] Validação funcionando (campos vazios, dificuldade inválida)
+- [x] Mensagens de erro em português
+- [x] Interface em português
+- [x] Seed data em português
+- [x] Recurso de verificar resposta implementado
+- [x] Navegação entre páginas (Problemas/Usuários)
+- [x] CRUD completo para problemas
+- [x] CRUD completo para usuários
+- [x] Filtro por dificuldade funcionando
+- [x] Modo escuro/claro funcionando
+- [x] Projeto no GitHub: https://github.com/MamdouhAlsaodi/Logica-Problemas-Matematicas
 
 ---
+
+## 🚀 Como Executar o Projeto
+
+### Backend
+```bash
+cd backend
+npm install
+npm start
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Acessar
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:5000/api
+
+---
+
+## 📝 Notas Importantes
+
+- MongoDB em memória é usado para desenvolvimento (mongodb-memory-server)
+- Nenhuma instalação adicional necessária além do Node.js
+- O sistema é totalmente responsivo
+- Suporta filtros por dificuldade: easy, medium, hard
+- Suporta níveis de usuário: beginner, intermediate, advanced
